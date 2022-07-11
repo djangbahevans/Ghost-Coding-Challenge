@@ -1,4 +1,5 @@
 (() => {
+  const author = window.prompt('Please enter your name', 'Thor Odinson');
   const submitButton = document.querySelector('.search-section button.btn');
   const input = document.querySelector('.search-section input');
   const commentSection = document.querySelector('.comments-section');
@@ -38,18 +39,16 @@
 
   submitButton.addEventListener('click', () => {
     const comment = input.value;
-    const author = 'Evans Djangbah';
 
     input.value = '';
-    const image =
-      'https://this-person-does-not-exist.com/img/avatar-b093ff2e9a653d27464ef1d0cca2e925.jpg';
+    const image = '/avatar.jpg';
     addComment({ text: comment, author, image, time: new Date() });
   });
 
   setInterval(() => {
-    const times = document.querySelectorAll('.comment-details .time')
+    const times = document.querySelectorAll('.comment-details .time');
     times.forEach((p) => {
-      p.innerText = getDuration(p.time)
-    })
+      p.innerText = getDuration(p.time);
+    });
   }, 1000);
 })();

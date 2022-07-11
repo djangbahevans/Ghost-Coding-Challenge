@@ -71,6 +71,7 @@ hr {
 
 .comment {
   display: flex;
+  margin-bottom: 32px;
 }
 
 .comment-img img {
