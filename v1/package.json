@@ -1,0 +1,22 @@
+{
+  "name": "ghost-coding-challenge",
+  "version": "1.0.0",
+  "description": "[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/web-platform-qfzake)",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djangbahevans/Ghost-Coding-Challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djangbahevans/Ghost-Coding-Challenge/issues"
+  },
+  "homepage": "https://github.com/djangbahevans/Ghost-Coding-Challenge#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
