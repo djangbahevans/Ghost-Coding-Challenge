@@ -6,6 +6,7 @@ type CommentType = {
   author: string,
   text: string,
   image: string,
+  upvotes: number,
 }
 
 const COMMENTS: (CommentType & { id: number, timestamp: number })[] = []
@@ -20,16 +21,27 @@ app.use(express.static('public'));
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  // send all comments to the new user
+  socket.emit('comments', COMMENTS);
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-  socket.on('comment', (msg: CommentType) => {
+  socket.on('comment', (msg: Omit<CommentType, "upvotes">) => {
     COMMENTS.push({
       ...msg,
       id: COMMENTS.length,
       timestamp: Date.now(),
+      upvotes: 0,
     });
-    io.emit('comment', msg);
+    io.emit("comment", COMMENTS[COMMENTS.length - 1]);
+  });
+  socket.on('upvote', (id: number) => {
+    console.log(`upvote ${id}`);
+    const comment = COMMENTS.find(c => c.id === id)
+    if (comment) {
+      comment.upvotes += 1;
+      io.emit("upvote", comment);
+    }
   });
 });
 
@@ -45,15 +57,10 @@ app.post("/comments", (req, res) => {
     image,
     id: COMMENTS.length,
     timestamp: Date.now(),
+    upvotes: 0,
   });
-  io.emit('comment', {
-    author,
-    text,
-    image,
-    id: COMMENTS.length,
-    timestamp: Date.now(),
-  });
-  res.send(COMMENTS);
+  io.emit("comment", COMMENTS[COMMENTS.length - 1]);
+  res.send(COMMENTS[COMMENTS.length - 1]);
 })
 
 server.listen(PORT, () => {
