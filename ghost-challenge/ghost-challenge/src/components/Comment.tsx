@@ -1,6 +1,6 @@
-import { formatDistanceToNow } from "date-fns"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSocket } from "../context"
+import { useFriendlyTime } from "../hooks/useFriendlyTime"
 import { Comment as CommentType } from "../utils"
 import "./Comment.css"
 import { Reply } from "./Reply"
@@ -8,9 +8,10 @@ import { Reply } from "./Reply"
 type Prop = CommentType & { level: number, style?: React.CSSProperties }
 
 export const Comment = ({ author, text, upvotes, timestamp, image, id, level, style = {}, children = [] }: Prop) => {
-  const friendlyTime = formatDistanceToNow(new Date(timestamp), { addSuffix: true })
   const socket = useSocket()
   const [showReply, setShowReply] = useState(false)
+
+  const friendlyTime = useFriendlyTime(timestamp)
 
   const handleUpvote = () => {
     socket.emit("upvote", id)
@@ -19,10 +20,6 @@ export const Comment = ({ author, text, upvotes, timestamp, image, id, level, st
   const handleReply = () => {
     setShowReply(!showReply)
   }
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <div style={style} className="comment">
