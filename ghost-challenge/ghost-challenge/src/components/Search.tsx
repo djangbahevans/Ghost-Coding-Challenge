@@ -5,9 +5,10 @@ import './Search.css'
 
 type Props = {
   user: string,
+  image: string,
 }
 
-export const Search = ({ user }: Props) => {
+export const Search = ({ user, image }: Props) => {
   const [value, setValue] = useState("")
   const socket = useSocket()
 
@@ -21,7 +22,7 @@ export const Search = ({ user }: Props) => {
     const comment: Omit<Comment, "id" | "timestamp" | "upvotes"> = {
       author: user,
       text: value,
-      image: "./avatar.jpb"
+      image
     }
     socket.emit("comment", comment)
     setValue("")
@@ -31,7 +32,7 @@ export const Search = ({ user }: Props) => {
     <>
       <div className="search-section">
         <img
-          src="./avatar.jpg"
+          src="./thor.jpg"
           alt="profile" />
         <input
           type="text"

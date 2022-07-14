@@ -23,7 +23,7 @@ export const Reply = ({ id, onSubmit, user }: Prop) => {
     const comment: Omit<Comment, "id" | "timestamp" | "upvotes"> = {
       author: user,
       text: value,
-      image: "./avatar.jpg"
+      image: "./thor.jpg"
     }
     socket.emit("reply", { comment, parentId: id })
     console.log({ ...comment, parentId: id })

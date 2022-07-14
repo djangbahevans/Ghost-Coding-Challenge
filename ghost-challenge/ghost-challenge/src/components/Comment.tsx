@@ -5,9 +5,9 @@ import { Comment as CommentType } from "../utils"
 import "./Comment.css"
 import { Reply } from "./Reply"
 
-type Prop = CommentType & { level: number, style?: React.CSSProperties, user: string }
+type Prop = CommentType & { level: number, style?: React.CSSProperties, user: string, userImage: string }
 
-export const Comment = ({ author, text, upvotes, timestamp, image, id, level, user, style = {}, children = [] }: Prop) => {
+export const Comment = ({ author, text, upvotes, timestamp, image, id, level, user, userImage, style = {}, children = [] }: Prop) => {
   const socket = useSocket()
   const [showReply, setShowReply] = useState(false)
 
@@ -41,7 +41,7 @@ export const Comment = ({ author, text, upvotes, timestamp, image, id, level, us
         </div>
         {showReply && <Reply user={user} id={id} onSubmit={handleReply} />}
         {children.map((child, index) => (
-          <Comment user={user} style={{ marginBottom: 10 }} key={index} {...child} level={level + 1} />
+          <Comment userImage={userImage} user={user} style={{ marginBottom: 10 }} key={index} {...child} level={level + 1} />
         ))}
       </div>
     </div>
