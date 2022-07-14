@@ -30,6 +30,6 @@ RUN npm run build
 
 RUN mv ./ghost-challenge/build .
 
-EXPOSE 3000
+EXPOSE 5000
 
 CMD ["npm", "start"]
