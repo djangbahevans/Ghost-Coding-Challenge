@@ -48,16 +48,20 @@ io.on('connection', (socket) => {
     io.emit("comment", COMMENTS[COMMENTS.length - 1]);
   });
   socket.on('upvote', (id: number) => {
-    console.log(`upvote ${id}`);
-    const comment = COMMENTS.find(c => c.id === id)
-    if (comment) {
-      comment.upvotes += 1;
-      io.emit("upvote", comment);
+    console.log(`upvote ${id}`)
+    // find the comment or the child comment and update the upvote count
+    const updateComment = (comment: CommentType) => {
+      if (comment.id === id) {
+        comment.upvotes += 1;
+        io.emit("upvote", { id, upvotes: comment.upvotes });
+      }
+      if (comment.children) {
+        comment.children.forEach(updateComment);
+      }
     }
+    COMMENTS.forEach(updateComment);
   });
   socket.on("reply", ({ comment, parentId }: { comment: Omit<CommentType, "upvotes" | "id" | "timestamp">, parentId: number }) => {
-    console.log(`reply ${parentId}`);
-    console.log(comment);
     const parent = COMMENTS.find(c => c.id === parentId);
     if (parent) {
       parent.children = parent.children || [];
