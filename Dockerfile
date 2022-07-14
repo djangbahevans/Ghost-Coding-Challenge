@@ -4,8 +4,6 @@ ENV NODE_ENV=production
 
 ENV REACT_APP_API_URL /
 
-ENV PORT 3000
-
 WORKDIR /app
 
 RUN mkdir -p /app/ghost-challenge/ghost-challenge
@@ -31,7 +29,5 @@ WORKDIR /app/ghost-challenge
 RUN npm run build
 
 RUN mv ./ghost-challenge/build .
-
-EXPOSE 3000
 
 CMD ["npm", "start"]
