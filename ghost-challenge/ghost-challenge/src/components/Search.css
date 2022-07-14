@@ -20,3 +20,10 @@
 .search-section input:focus-visible {
   outline: none;
 }
+
+hr {
+  background-color: #e5e5e5;
+  height: 1px;
+  border: none;
+  margin: 42px 0;
+}

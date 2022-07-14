@@ -1,14 +1,18 @@
-import { Search } from './components';
 import "./App.css";
+import { Comments, Search } from './components';
+import { SocketProvider } from './context';
 
 function App() {
   return (
-    <div className='app'>
-      <div className="discussion-title">
-        <h1>Discussion</h1>
+    <SocketProvider>
+      <div className='app'>
+        <div className="discussion-title">
+          <h1>Discussion</h1>
+        </div>
+        <Search />
+        <Comments />
       </div>
-      <Search />
-    </div>
+    </SocketProvider>
   );
 }
 

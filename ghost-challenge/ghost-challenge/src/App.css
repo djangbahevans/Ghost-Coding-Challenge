@@ -14,10 +14,23 @@ body {
   margin: 38px 50px;
 }
 
-.btn {
-  background-color: #7e34f6;
+button {
   border: none;
+  background: none;
   outline: none;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #7e34f6;
   border-radius: 4px;
   color: #fff;
   font-size: 11px;
