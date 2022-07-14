@@ -4,7 +4,7 @@ import io, { Socket } from "socket.io-client";
 const socketContext = createContext<Socket | null>(null);
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-  const socket = io("http://localhost:5000");
+  const socket = io(process.env.REACT_APP_API_URL ?? "/");
 
   socket.on("connect", () => {
     console.log("Connected to server");
@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     return () => {
       console.log("Disconnecting from server");
       socket.disconnect();
-    } 
+    }
   }, [socket]);
 
   return <socketContext.Provider value={socket}>{children}</socketContext.Provider>;
