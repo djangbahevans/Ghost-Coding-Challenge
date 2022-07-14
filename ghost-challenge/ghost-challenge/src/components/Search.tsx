@@ -3,7 +3,11 @@ import { useSocket } from '../context'
 import { Comment } from '../utils'
 import './Search.css'
 
-export const Search = () => {
+type Props = {
+  user: string,
+}
+
+export const Search = ({ user }: Props) => {
   const [value, setValue] = useState("")
   const socket = useSocket()
 
@@ -15,7 +19,7 @@ export const Search = () => {
 
   const handleClick = () => {
     const comment: Omit<Comment, "id" | "timestamp" | "upvotes"> = {
-      author: "Evans",
+      author: user,
       text: value,
       image: "./avatar.jpb"
     }
@@ -34,7 +38,7 @@ export const Search = () => {
           placeholder="What are your thoughts?"
           value={value}
           onChange={e => setValue(e.target.value)}
-          onKeyDown={e => {if (e.key === "Enter") handleClick()}}
+          onKeyDown={e => { if (e.key === "Enter") handleClick() }}
           ref={inputRef}
         />
         <button className="btn btn-primary" onClick={handleClick}>Comment</button>

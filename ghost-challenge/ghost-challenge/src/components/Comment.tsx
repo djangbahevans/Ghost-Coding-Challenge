@@ -5,9 +5,9 @@ import { Comment as CommentType } from "../utils"
 import "./Comment.css"
 import { Reply } from "./Reply"
 
-type Prop = CommentType & { level: number, style?: React.CSSProperties }
+type Prop = CommentType & { level: number, style?: React.CSSProperties, user: string }
 
-export const Comment = ({ author, text, upvotes, timestamp, image, id, level, style = {}, children = [] }: Prop) => {
+export const Comment = ({ author, text, upvotes, timestamp, image, id, level, user, style = {}, children = [] }: Prop) => {
   const socket = useSocket()
   const [showReply, setShowReply] = useState(false)
 
@@ -39,9 +39,9 @@ export const Comment = ({ author, text, upvotes, timestamp, image, id, level, st
           <button className="upvote-btn btn comment-btn" onClick={handleUpvote}>▲ Upvote ({upvotes})</button>
           {level === 0 && <button className="reply-btn btn comment-btn" onClick={handleReply}>Reply</button>}
         </div>
-        {showReply && <Reply id={id} onSubmit={handleReply} />}
+        {showReply && <Reply user={user} id={id} onSubmit={handleReply} />}
         {children.map((child, index) => (
-          <Comment style={{ marginBottom: 10 }} key={index} {...child} level={level + 1} />
+          <Comment user={user} style={{ marginBottom: 10 }} key={index} {...child} level={level + 1} />
         ))}
       </div>
     </div>

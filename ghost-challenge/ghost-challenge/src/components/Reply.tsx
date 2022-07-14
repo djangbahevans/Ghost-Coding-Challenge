@@ -5,10 +5,11 @@ import "./Reply.css"
 
 type Prop = {
   id: number,
+  user: string,
   onSubmit?: (comment: Omit<Comment, "id" | "timestamp" | "upvotes">) => void
 }
 
-export const Reply = ({ id, onSubmit }: Prop) => {
+export const Reply = ({ id, onSubmit, user }: Prop) => {
   const [value, setValue] = useState("")
   const socket = useSocket()
 
@@ -20,7 +21,7 @@ export const Reply = ({ id, onSubmit }: Prop) => {
 
   const handleClick = () => {
     const comment: Omit<Comment, "id" | "timestamp" | "upvotes"> = {
-      author: "Evans",
+      author: user,
       text: value,
       image: "./avatar.jpg"
     }

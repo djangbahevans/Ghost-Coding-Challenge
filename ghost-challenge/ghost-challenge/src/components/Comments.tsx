@@ -4,7 +4,11 @@ import { useSocket } from "../context"
 import { Comment as CommentType } from "../utils"
 
 
-export const Comments = () => {
+type Props = {
+  user: string,
+}
+
+export const Comments = ({ user: author }: Props) => {
   const [comments, setComments] = useState<CommentType[]>([])
   const socket = useSocket()
 
@@ -58,7 +62,7 @@ export const Comments = () => {
   return (
     <div className="comments-section">
       {comments.map(comment => (
-        <Comment level={0} key={comment.id} {...comment} image="./avatar.jpb" />
+        <Comment user={author} level={0} key={comment.id} {...comment} image="./avatar.jpb" />
       ))}
     </div>
   )
