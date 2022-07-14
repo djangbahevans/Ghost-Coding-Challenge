@@ -31,14 +31,12 @@ app.use(express.static('build'));
 io.on('connection', (socket) => {
   console.log('a user connected');
   // send all comments to the new user
-  console.log("Emitting all comments")
   socket.emit('comments', COMMENTS);
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
   socket.on('comment', (msg: Omit<CommentType, "upvotes">) => {
-    console.log(msg);
     COMMENTS.push({
       ...msg,
       id: nextId++,
@@ -48,7 +46,6 @@ io.on('connection', (socket) => {
     io.emit("comment", COMMENTS[COMMENTS.length - 1]);
   });
   socket.on('upvote', (id: number) => {
-    console.log(`upvote ${id}`)
     // find the comment or the child comment and update the upvote count
     const updateComment = (comment: CommentType) => {
       if (comment.id === id) {

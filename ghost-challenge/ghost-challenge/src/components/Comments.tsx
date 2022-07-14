@@ -23,8 +23,6 @@ export const Comments = ({ user, image }: Props) => {
     socket.on("upvote", ({ id, upvotes }: { id: number, upvotes: number }) => {
       // make a copy of the comments array
       const newComments = [...comments]
-      console.log(comments)
-      console.log(newComments)
       // find the comment or the child comment with the given id
       const updateComment = (comment: CommentType) => {
         if (comment.id === id) {

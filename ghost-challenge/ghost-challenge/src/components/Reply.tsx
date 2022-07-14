@@ -26,7 +26,6 @@ export const Reply = ({ id, onSubmit, user }: Prop) => {
       image: "./thor.jpg"
     }
     socket.emit("reply", { comment, parentId: id })
-    console.log({ ...comment, parentId: id })
     setValue("")
     onSubmit?.(comment)
   }
